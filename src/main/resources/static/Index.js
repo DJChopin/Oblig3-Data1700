@@ -28,9 +28,16 @@ function idChangeTicket(id) {
     window.location.href = "/change.html?"+id;
 }
 function deleteTicket(id) {
-    const url = "/deleteTicket="+id;
-    $.get( url, function() {
-        window.location.href = "/";
+    const url = "/deleteTicket?id=" + id;
+    $.ajax({
+        url: url,
+        type: "DELETE",
+        success: function() {
+            fetchAllTickets();
+        },
+        error: function(xhr, status, error) {
+            console.error("Error deleting ticket:", error);
+        }
     });
 }
 function deleteAll() {

@@ -11,12 +11,12 @@ public class Ticket {
 
     public Ticket(int id, int ticketAmount, String firstName, String lastName, String phone, String email, String movie) {
         this.id = id;
-        this.movie = movie;
         this.ticketAmount = ticketAmount;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
         this.email = email;
+        this.movie = movie;
     }
     public Ticket() {
 

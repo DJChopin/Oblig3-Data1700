@@ -12,7 +12,7 @@ public class TicketRepository {
 
     @Autowired
     private JdbcTemplate db;
-    public List<Ticket> fetchAllTicket(){
+    public List<Ticket> fetchAllTickets(){
         String sql = "SELECT * FROM Ticket";
         return db.query(sql,new  BeanPropertyRowMapper<>(Ticket.class));
     }
@@ -29,18 +29,18 @@ public class TicketRepository {
         String sql = "DELETE FROM Ticket";
         db.update(sql);
     }
-    public void deleteOneTicket(long id){
+    public void deleteOneTicket(int id){
         String sql = "DELETE FROM Ticket Where id=?";
-        db.update(sql,id);
+        db.update(sql, id);
     }
     public void editTicket(Ticket ticket) {
-        String sql = "UPDATE Ticket SET movie=?,ticketAmount=? , firstName=? ,lastName=? , phone=? , email=? where id=?";
-        db.update(sql,ticket.getMovie(),ticket.getTicketAmount(),ticket.getFirstName(),ticket.getLastName(),ticket.getPhone(),ticket.getEmail());
+        String sql = "UPDATE TICKET SET ticketAmount=? , firstName=? ,lastName=? , phone=? , email=? , movie=? where id=?";
+        db.update(sql, ticket.getTicketAmount(),ticket.getFirstName(),ticket.getLastName(),ticket.getPhone(),ticket.getEmail(), ticket.getMovie());
     }
 
     public void purchase(Ticket innTicket){
-        String sql = "INSERT INTO Ticket(movie, ticketAmount, firstName,lastName, phone, email) VALUES(?,?,?,?,?,?)";
-        db.update(sql, innTicket.getMovie(), innTicket.getTicketAmount(), innTicket.getFirstName(), innTicket.getLastName(), innTicket.getPhone(), innTicket.getEmail());
+        String sql = "INSERT INTO TICKET(ticketAmount, firstName,lastName, phone, email, movie) VALUES(?,?,?,?,?,?)";
+        db.update(sql, innTicket.getTicketAmount(), innTicket.getFirstName(), innTicket.getLastName(), innTicket.getPhone(), innTicket.getEmail(), innTicket.getMovie());
     }
 
 }

@@ -1,10 +1,10 @@
 $(function(){
-    fetchAllMovies();
+    fetchAllMovie();
 });
 
-function fetchAllMovies() {
-    $.get("/fetchAllMovies", function(movies) {
-        populateDropdown(movies);
+function fetchAllMovie() {
+    $.get("/fetchAllMovie", function(movie) {
+        populateDropdown(movie);
     })
         .fail(function(jqXHR) {
             const json = $.parseJSON(jqXHR.responseText);
@@ -17,12 +17,12 @@ function populateDropdown(movies){
     dropdown.empty();
     dropdown.append('<option selected="" disabled>Choose movie</option>');
     $.each(movies, function(index, movie) {
-        dropdown.append($('<option></option>').attr('value', movie.title).text(movie.title));
+        dropdown.append($('<option></option>').attr('value', movie.movie).text(movie.movie));
     });
 }
 
 function purchaseTickets() {
-    const Tickets = {
+    const Ticket = {
         ticketAmount : $("#ticketAmount").val(),
         firstName : $("#firstName").val(),
         lastName : $("#lastName").val(),
@@ -30,8 +30,9 @@ function purchaseTickets() {
         email : $("#email").val(),
         movie : $("#movie").val(),
     };
-    $.post("/purchase", Tickets, function(){
+    $.post("/purchase", Ticket, function(){
         fetchAllTickets();
     });
+
     window.location.href = "/";
 }

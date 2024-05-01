@@ -1,5 +1,5 @@
 $(function(){
-    fetchAllMovies();
+    fetchAllMovie();
     fetchOneTicket();
 });
 

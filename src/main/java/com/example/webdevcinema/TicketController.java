@@ -1,12 +1,9 @@
 package com.example.webdevcinema;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -16,12 +13,12 @@ public class TicketController {
     @Autowired
     private TicketRepository rep;
 
-    @GetMapping("/fetchAllMovies")
+    @GetMapping("/fetchAllMovie")
     public List<Movie> fetchAllMovie() {return  rep.fetchAllMovie(); }
 
     @GetMapping("/fetchAllTickets")
     public List<Ticket> fetchAllTickets(){
-        return rep.fetchAllTicket();
+        return rep.fetchAllTickets();
     }
 
 
@@ -35,9 +32,14 @@ public class TicketController {
         rep.deleteAll();
     }
 
-    @GetMapping("/deleteOneTicket")
-    public void deleteOneTicket(long id){
-        rep.deleteOneTicket(id);
+    @DeleteMapping("/deleteTicket")
+    public ResponseEntity<String> deleteOneTicket(@RequestParam("id") int id) {
+        try {
+            rep.deleteOneTicket(id);
+            return ResponseEntity.ok("Ticket deleted successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete ticket: " + e.getMessage());
+        }
     }
 
     @PostMapping("/edit")
@@ -46,7 +48,7 @@ public class TicketController {
     }
 
     @PostMapping("/purchase")
-    public ResponseEntity<String> purchaseTicket(@RequestBody Ticket innTicket) {
+    public ResponseEntity<String> purchaseTicket(Ticket innTicket) {
         if (innTicket == null || innTicket.getMovie() == null || innTicket.getMovie().isEmpty() ||
                 innTicket.getTicketAmount() <= 0 || innTicket.getFirstName() == null || innTicket.getFirstName().isEmpty() ||
                 innTicket.getLastName() == null || innTicket.getLastName().isEmpty() ||
@@ -68,13 +70,13 @@ public class TicketController {
     }
 
     private boolean isValidEmail(String email) {
-        // Basic email format validation
+        //  email format validation
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         return email.matches(emailRegex);
     }
 
     private boolean isValidPhoneNumber(String phone) {
-        // Basic phone number format validation
+        //  phone number format validation
         String phoneRegex = "^\\+(?:[0-9] ?){6,14}[0-9]$";
         return phone.matches(phoneRegex);
     }
