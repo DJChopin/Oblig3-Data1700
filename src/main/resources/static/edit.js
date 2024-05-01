@@ -32,8 +32,28 @@ function getOneTicket(){
         $("#film").val(aTicket.film);
     });
 }
-
 function editTicket() {
+    const ticket = {
+        id: $("#id").val(),
+        ticketAmount: $("#ticketAmount").val(),
+        firstName: $("#firstName").val(),
+        lastName: $("#lastName").val(),
+        phone: $("#phone").val(),
+        email: $("#email").val(),
+        film: $("#film").val(),
+    };
+
+    $.post("/edit", ticket, function () {
+    })
+        .done(function () {
+            window.location.href = "index.html";
+        })
+        .fail(function (error) {
+            console.error("Error updating ticket:", error);
+        });
+}
+
+/*function editTicket() {
     const ticket = {
         id : $("#id").val(),
         ticketAmount : $("#ticketAmount").val(),
@@ -47,4 +67,4 @@ function editTicket() {
     });
 
     window.location.href="index.html";
-}
+}*/
