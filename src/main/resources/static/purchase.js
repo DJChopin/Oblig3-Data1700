@@ -27,9 +27,11 @@ function purchase() {
         email : $("#email").val(),
         film : $("#movie").val(),
     };
-    $.post("/purchase", ticket, function(){
-        getAllTicket();
-    });
 
-    window.location.href="/";
+    if (allValid()) {
+        $.post("/purchase", ticket, function () {
+            getAllTicket();
+        });
+        window.location.href = "/";
+    }
 }

@@ -14,23 +14,28 @@
             <form class="form">
                 <div class="form-group">
                     <label for="ticketAmount">Amount of Tickets</label>
-                    <input type="text" class="form-control" id="ticketAmount"/>
+                    <input type="text" class="form-control" id="ticketAmount" onchange="validTicketAmount()"/>
+                    <span id="wrongTicketAmount" style="color: red"></span>
                 </div>
                 <div class="form-group">
                     <label for="firstName">First Name</label>
-                    <input type="text" class="form-control" id="firstName"/>
+                    <input type="text" class="form-control" id="firstName" onchange="validFirstName()"/>
+                    <span id="wrongFirstName" style="color: red"></span>
                 </div>
                 <div class="form-group">
                     <label for="lastName">Last Name</label>
-                    <input type="text" class="form-control" id="lastName"/>
+                    <input type="text" class="form-control" id="lastName" onchange="validLastName()"/>
+                    <span id="wrongLastName" style="color: red"></span>
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
-                    <input type="text" class="form-control" id="phone"/>
+                    <input type="text" class="form-control" id="phone" onchange="validPhone()"/>
+                    <span id="wrongPhone" style="color: red"></span>
                 </div>
                 <div class="form-group">
                     <label for="email">E-mail</label>
-                    <input type="text" class="form-control" id="email">
+                    <input type="text" class="form-control" id="email" onchange="validEmail()">
+                    <span id="wrongEmail" style="color: red"></span>
                 </div>
                 <div class="form-group">
                     <label for="movie">Movie</label>
@@ -44,5 +49,6 @@
     </div>
 </div>
 <script src="purchase.js"></script>
+<script src="validation.js"></script>
 </body>
 </html>

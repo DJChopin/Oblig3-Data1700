@@ -48,6 +48,7 @@ function editTicket() {
         email: $("#email").val(),
         film: filmValue,
     };
+    if (allValid()){
     $.post("/edit", tickets, function () {
     })
         .done(function () {
@@ -56,4 +57,5 @@ function editTicket() {
         .fail(function (error) {
             console.error("Error updating ticket:", error);
         });
+    }
 }

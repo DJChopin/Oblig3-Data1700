@@ -1,11 +1,12 @@
 package webprog.java1700oblig3tickets;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -15,37 +16,72 @@ public class TicketController {
     private TicketRepository rep;
 
     @GetMapping("/getMovie")
-    public List<Movie> getMovie() {
-        return rep.getAllMovie();
+    public ResponseEntity<List<Movie>> getMovie() {
+        try {
+            List<Movie> movies = rep.getAllMovie();
+            return ResponseEntity.ok(movies);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     @PostMapping("/purchase")
-    public void purchase(Ticket tickets){
-        rep.purchaseTicket(tickets);
+    public ResponseEntity<Void> purchase(Ticket tickets){
+        try {
+            rep.purchaseTicket(tickets);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping("/getAllTicket")
-    public List<Ticket> getAllTicket(){
-        return rep.getAllTicket();
+    public ResponseEntity<List<Ticket>> getAllTicket(){
+        try {
+            List<Ticket> tickets = rep.getAllTicket();
+            return ResponseEntity.ok(tickets);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     @GetMapping("/getOneTicket")
-    public Ticket getOneTicket(int id){
-        return rep.getOneTicket(id);
+    public ResponseEntity<Ticket> getOneTicket(int id){
+        try {
+            Ticket ticket = rep.getOneTicket(id);
+            return ResponseEntity.ok(ticket);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     @PostMapping("/edit")
-    public void editTicket(Ticket tickets){
-        rep.editTicket(tickets);
+    public ResponseEntity<Void> editTicket(Ticket tickets){
+        try {
+            rep.editTicket(tickets);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping("/deleteOneTicket")
-    public void deleteOneTicket(int id){
-        rep.deleteOneTicket(id);
+    public ResponseEntity<Void> deleteOneTicket(int id){
+        try {
+            rep.deleteOneTicket(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping("/deleteAll")
-    public void deleteAllTicket(){
-        rep.deleteAllTicket();
+    public ResponseEntity<Void> deleteAllTicket(){
+        try {
+            rep.deleteAllTicket();
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }
