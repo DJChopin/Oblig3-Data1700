@@ -32,18 +32,23 @@ function getOneTicket(){
         $("#film").val(aTicket.film);
     });
 }
+
 function editTicket() {
-    const ticket = {
+    const filmValue = $("#movie").val();
+    if (!filmValue) {
+        console.error("Film value cannot be empty");
+        return;
+    }
+    const tickets = {
         id: $("#id").val(),
         ticketAmount: $("#ticketAmount").val(),
         firstName: $("#firstName").val(),
         lastName: $("#lastName").val(),
         phone: $("#phone").val(),
         email: $("#email").val(),
-        film: $("#film").val(),
+        film: filmValue,
     };
-
-    $.post("/edit", ticket, function () {
+    $.post("/edit", tickets, function () {
     })
         .done(function () {
             window.location.href = "index.html";
@@ -52,19 +57,3 @@ function editTicket() {
             console.error("Error updating ticket:", error);
         });
 }
-
-/*function editTicket() {
-    const ticket = {
-        id : $("#id").val(),
-        ticketAmount : $("#ticketAmount").val(),
-        firstName : $("#firstName").val(),
-        lastName : $("#lastName").val(),
-        phone : $("#phone").val(),
-        email : $("#email").val(),
-        film : $("#film").val(),
-    };
-    $.post("/edit", ticket, function(){
-    });
-
-    window.location.href="index.html";
-}*/

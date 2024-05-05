@@ -20,8 +20,8 @@ public class TicketController {
     }
 
     @PostMapping("/purchase")
-    public void purchase(Ticket ticket){
-        rep.purchaseTicket(ticket);
+    public void purchase(Ticket tickets){
+        rep.purchaseTicket(tickets);
     }
 
     @GetMapping("/getAllTicket")
@@ -35,8 +35,8 @@ public class TicketController {
     }
 
     @PostMapping("/edit")
-    public void edit(Ticket ticket){
-        rep.editTicket(ticket);
+    public void editTicket(Ticket tickets){
+        rep.editTicket(tickets);
     }
 
     @GetMapping("/deleteOneTicket")

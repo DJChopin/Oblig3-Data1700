@@ -23,7 +23,13 @@ public class TicketRepository {
 
     public List<Ticket> getAllTicket() {
         String sql = "SELECT * FROM Ticket";
-        return db.query(sql,new BeanPropertyRowMapper(Ticket.class));
+        try{
+            return db.query(sql,new BeanPropertyRowMapper(Ticket.class));
+        }
+        catch(Exception e){
+            logger.error("Error in ger all tickets "+e);
+            return null;
+        }
     }
 
 
@@ -33,9 +39,16 @@ public class TicketRepository {
         return aTicket.get(0);
     }
 
-    public void editTicket(Ticket t){
+    public boolean editTicket(Ticket t){
         String sql = "UPDATE Ticket SET ticketAmount=?, firstName=?,lastName=?,phone=?,email=?,film=? where id=?";
-        db.update(sql, t.getTicketAmount(), t.getFirstName(), t.getLastName(),t.getPhone(),t.getEmail(),t.getFilm());
+        try {
+            db.update(sql,t.getTicketAmount(),t.getFirstName(),t.getLastName(),t.getPhone(),t.getEmail(),t.getFilm(),t.getId());
+            return true;
+        }
+        catch(Exception e){
+            logger.error("Error, can't Save "+e);
+            return false;
+        }
     }
     public void deleteOneTicket(int id) {
         String sql = "DELETE FROM Ticket WHERE id=?";
