@@ -28,7 +28,7 @@ public class TicketRepository {
 
     public List<Ticket> getAllTicket() {
         try {
-            String sql = "SELECT * FROM Ticket";
+            String sql = "SELECT * FROM Ticket ORDER BY lastName";
             return db.query(sql, new BeanPropertyRowMapper(Ticket.class));
         } catch (Exception e) {
             logger.error("Error getting all tickets: " + e.getMessage());
